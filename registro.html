@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Usuario</title>
+    <link rel="stylesheet" href="assets/assets_css/autenticacion.css">
+    <link rel="interactive" href="assets/assets_js/main.js">
+
+</head>
+
+<body>
+    <nav class="navbar">
+
+        <img class="Logo" src="assets/assets_img/Logo_huerto_hogar_transparente.png" alt="Logo" />
+
+        <ul class="nav-links">
+            <li><a class="nav-link" href="index.html">Inicio</a></li>
+            <li><a href="productos.html">Productos</a></li>
+            <li><a href="#">Nosotros</a></li>
+            <li><a href="#">Blogs</a></li>
+            <li><a href="#">Contacto</a></li>
+        </ul>
+        <a href="ingreso.html">
+            <img class="navbar-usuario-img" src="assets/assets_img/iniciar_sesion4.png" alt="Icono de Usuario" />
+        </a>
+
+        <a href="carrito.html">
+            <img class="navbar-usuario-img" src="assets/assets_img/basket2.png" alt="Icono de Carrito" />
+        </a>
+
+    </nav>
+
+    <main>
+        <div class="espaciado"></div>
+        <div class="hero">
+            <div class="hero-contenido">
+
+                <div class="hero-contenido-techo">
+                    <p class="titulo">Crear Cuenta</p>
+                </div>
+
+                <form>
+                    <div class="hero-contenido-campos">
+                        
+                        <div class="campo">
+                            <label for="nombre">Nombre</label>
+                            <input id="nombre" name="nombre" type="text" autocomplete="given-name"
+                                placeholder="Ingresa tu nombre" required />
+                        </div>
+
+                        <div class="campo">
+                            <label for="apellido">Apellido</label>
+                            <input id="apellido" name="apellido" type="text" autocomplete="family-name"
+                                placeholder="Ingresa tu apellido" required />
+                        </div>
+                        
+                        <div class="campo">
+                            <label for="email">Correo electrónico</label>
+                            <input id="email" name="email" type="email" inputmode="email" autocomplete="email"
+                                placeholder="ejemplo@gmail.com" required />
+                        </div>
+
+                        <div class="campo">
+                            <label for="password">Contraseña</label>
+                            <input id="password" name="password" type="password" inputmode="password"
+                                autocomplete="new-password" minlength="8" placeholder="Crea una contraseña" required />
+                        </div>
+
+                        <div class="campo">
+                            <label for="confirmar-password">Confirmar Contraseña</label>
+                            <input id="confirmar-password" name="confirmar-password" type="password" inputmode="password"
+                                autocomplete="new-password" minlength="8" placeholder="Repite la contraseña" required />
+                        </div>
+                        
+                    </div>
+
+                    <div class="hero-contenido-piso">
+                        <button class="button-ingresar" type="submit">Registrarme</button>
+
+                        <p class="enlace-registro">
+                            ¿Ya tienes cuenta? <a href="ingreso.html">Inicia sesión aquí</a>
+                        </p>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+
+            <div class="footer-info">
+                <h3>Contáctanos 📧</h3>
+                <p>
+                    Encuéntranos en: Santiago 📍, Puerto Montt 🏞️, Viña del Mar 🏖️ y Concepción 🏭.
+                    <br>
+                    Llámanos al: +56 9 1234 5678 📞 o escríbenos a info@huertohogar.cl 📧.
+                    <br>
+                    ¡Siempre llevando la frescura de la granja a tu hogar! 🥬🥕🍎
+                </p>
+            </div>
+
+            <div class="footer-socials">
+                <a href="#">Facebook</a>
+                <a href="#">Instagram</a>
+                <a href="#">WhatsApp</a>
+                <a href="#">Twitter</a>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            &copy; 2025 HuertoHogar. Todos los derechos reservados.
+        </div>
+    </footer>
+
+</body>
+
+</html>
