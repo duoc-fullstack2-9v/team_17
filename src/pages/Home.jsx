@@ -108,7 +108,7 @@ function Home() {
 
                     <div className="hero-contenido-image-slider">
 
-                        <div className="slides" ref={slidesRef}>
+                        <div className="slides" ref={slidesRef} data-testid="slides-container">
 
                             {images.map((src, index) => (
                                 <img
