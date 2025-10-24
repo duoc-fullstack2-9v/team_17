@@ -1,4 +1,4 @@
-.hero {
+.hero-prodDet {
     background-color: white;
     width: 100%;
     min-height: 450px;
@@ -6,11 +6,11 @@
     box-sizing: border-box;
     margin-bottom: 0;
 
-    .hero_content {
+    .hero-prodDet_content {
         display: flex;
         min-height: 450px;
 
-        .hero_content_image {
+        .hero-prodDet_content_image {
             width: 50%;
             background-color: #6fe087;
             box-sizing: border-box;
@@ -26,14 +26,14 @@
             }
         }
 
-        .hero_content_detalle {
+        .hero-prodDet_content_detalle {
             width: 50%;
             padding: 30px;
             background-color: rgb(245, 245, 245);
             display: flex;
             flex-direction: column;
 
-            .hero_content_detalle_desc {
+            .hero-prodDet_content_detalle_desc {
                 flex-grow: 1;
                 padding-bottom: 20px;
 
@@ -53,7 +53,7 @@
                 }
             }
 
-            .hero_content_detalle_botones {
+            .hero-prodDet_content_detalle_botones {
 
                 display: flex;
                 justify-content: center;

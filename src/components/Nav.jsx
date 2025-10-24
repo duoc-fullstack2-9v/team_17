@@ -14,13 +14,13 @@ function Nav() {
 
         <ul className="nav-links">
             <Link className="nav-link" to="/Home">Inicio</Link>
-            <Link className="a" to="/productos">Productos</Link>
+            <Link className="a" to="/Productos">Productos</Link>
             <Link className="a" to="/nosotros">Nosotros</Link>
             <Link className="a" to="/productos">Blogs</Link>
             <Link className="a" to="/productos">Contacto</Link>
         </ul>
 
-        <Link to="/ingreso">
+        <Link to="/Ingreso">
             <img className="navbar-usuario-img" src={img_inicio} alt="Logo" />
         </Link>
 

@@ -1,5 +1,6 @@
 import Footer from "../components/Footer";
 import Nav from "../components/Nav";
+import React, { useState, useEffect, useRef } from 'react';
 import '../assets/assets_css/home.css'
 
 import verduras from '../assets/assets_img/verduras.png'
@@ -7,24 +8,69 @@ import fruits from '../assets/assets_img/fruits.png'
 import spices from '../assets/assets_img/spices.png'
 import snack from '../assets/assets_img/snack.png'
 
+import naranja from '../assets/assets_img/naranja2.png'
+import papas from '../assets/assets_img/papas2.png'
+import platano from '../assets/assets_img/platano2.png'
+import manzana from '../assets/assets_img/apple2.png'
+import cebolla from '../assets/assets_img/cebolla2.png'
+
 
 function Home() {
+
+    const [currentIndex, setCurrentIndex] = useState(0);
+    const slidesRef = useRef(null);
+    const images = [
+        naranja,
+        papas,
+        platano,
+        manzana,
+        cebolla
+    ];
+
+    const totalImages = images.length;
+
+    const showSlide = (newIndex) => {
+        let nextIndex = newIndex;
+
+        if (newIndex < 0) {
+            nextIndex = totalImages - 1;
+        } else if (newIndex >= totalImages) {
+            nextIndex = 0;
+        }
+
+        setCurrentIndex(nextIndex);
+
+
+        if (slidesRef.current) {
+            slidesRef.current.style.transform = `translateX(${-nextIndex * 100}%)`;
+        }
+    };
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            showSlide(currentIndex + 1);
+        }, 2500);
+
+        return () => clearInterval(interval);
+    }, [currentIndex]);
+
+    const handlePrev = () => showSlide(currentIndex - 1);
+    const handleNext = () => showSlide(currentIndex + 1);
+
     return (
         <>
-            <Nav /> {/* Use self-closing syntax for components */}
+            <Nav />
             <main>
-                <div className="espaciado"></div> {/* FIX 1: Use className instead of class */}
-                <div className="hero"> {/* FIX 1: Use className instead of class */}
+                <div className="espaciado"></div>
+                <div className="hero">
 
-                    <div className="hero-contenido-categorias"> {/* FIX 1: Use className instead of class */}
+                    <div className="hero-contenido-categorias">
 
-                        {/* Category Items */}
-                        <div className="categoria-item"> {/* FIX 1: Use className instead of class */}
-                            <div className="categoria-img-container"> {/* FIX 1: Use className instead of class */}
-                                {/* FIX 2: All <img> tags must be self-closing */}
+                        <div className="categoria-item">
+                            <div className="categoria-img-container">
                                 <img src={verduras} alt="Verduras" />
                             </div>
-                            <div className="categoria-nombre">Verduras</div> {/* FIX 1: Use className instead of class */}
+                            <div className="categoria-nombre">Verduras</div>
                         </div>
 
                         <div className="categoria-item">
@@ -50,7 +96,7 @@ function Home() {
 
                     </div>
 
-                    <div className="hero-contenido-presentacion"> {/* FIX 1: Use className instead of class */}
+                    <div className="hero-contenido-presentacion">
                         <p>
                             HuertoHogar es una tienda online dedicada a llevar la frescura y calidad de los productos del campo
                             directamente a la puerta de nuestros clientes en Chile. Con más de 6 años de experiencia, operamos
@@ -58,30 +104,31 @@ function Home() {
                             Villarica, Nacimiento, Viña del Mar, Valparaíso, y Concepción. Nuestra misión es conectar a las
                             familias chilenas con el campo, promoviendo un estilo de vida saludable y sostenible.
                         </p>
-                        {/* FIX 3: Removed stray <p> tags. The original code had an extra, unclosed <p> here. */}
                     </div>
 
-                    <div className="hero-contenido-image-slider"> {/* FIX 1: Use className instead of class and corrected typo */}
+                    <div className="hero-contenido-image-slider">
 
-                        <div className="slides"> {/* FIX 1: Use className instead of class */}
+                        <div className="slides" ref={slidesRef}>
 
-                            {/* FIX 2: All <img> tags must be self-closing and removed excessive nesting/closing tags */}
-                            <img src="assets/assets_img/naranja2.png" alt="Imagen 1" />
-                            <img src="assets/assets_img/papas2.png" alt="Imagen 2" />
-                            <img src="assets/assets_img/platano2.png" alt="Imagen 3" />
-                            <img src="assets/assets_img/apple2.png" alt="Imagen 4" />
-                            <img src="assets/assets_img/cebolla2.png" alt="Imagen 5" />
+                            {images.map((src, index) => (
+                                <img
+                                    key={index}
+                                    src={src}
+                                    alt={`Imagen ${index + 1}`}
+                                />
+                            ))}
+
                         </div>
 
-                        <button className="prev">&#10094;</button> {/* FIX 1: Use className instead of class */}
-                        <button className="next">&#10095;</button> {/* FIX 1: Use className instead of class */}
+                        <button className="prev" onClick={handlePrev}>&#10094;</button>
+                        <button className="next" onClick={handleNext}>&#10095;</button>
 
                     </div>
 
-                </div> {/* Corrected the closing tags for the main content */}
+                </div>
 
             </main>
-            <Footer /> {/* Use self-closing syntax for components */}
+            <Footer />
         </>
     );
 }

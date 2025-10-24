@@ -1,18 +1,18 @@
-.hero {
+.hero-prod {
     background-color: white;
     width: 100%;
     border: 10px solid #256d43;
     box-sizing: border-box;
 
 
-    .hero_content {
+    .hero-prod_content {
 
 
         min-height: 550px;
         display: flex;
         flex-direction: row;
 
-        .hero_content_categorias {
+        .hero-prod_content_categorias {
             background-color: rgb(64, 206, 94);
             border-right: 10px solid #256d43;
             min-height: 550px;
@@ -24,15 +24,17 @@
             box-sizing: border-box;
         }
 
-        .hero_content_productos {
+        .hero-prod_content_productos {
             background-color: rgb(64, 206, 94);
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
             gap: 20px;
             padding: 20px;
             flex: 1;
+            min-width: 0;
 
-            .hero_content_productos_cuadro {
+
+            .hero-prod_content_productos_cuadro {
                 border: 3px solid #70360d;
                 border-radius: 10px;
                 padding: 10px;
