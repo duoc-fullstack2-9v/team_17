@@ -27,22 +27,22 @@ function Producto_detalle() {
         <Nav></Nav>
         <main>
             <div className="espaciado"></div>
-            <div className="hero-prodDet-prodDet">
-                <div className="hero-prodDet-prodDet_content">
+            <div className="hero-prodDet">
+                <div className="hero-prodDet_content">
 
-                    <div className="hero-prodDet-prodDet_content_image">
+                    <div className="hero-prodDet_content_image">
                         <img src={imagenes[producto.img]} alt={producto.nombre} />
                     </div>
 
-                    <div className="hero-prodDet-prodDet_content_detalle">
-                        <div className="hero-prodDet-prodDet_content_detalle_desc">
+                    <div className="hero-prodDet_content_detalle">
+                        <div className="hero-prodDet_content_detalle_desc">
                             <p className="desc_titulo">{producto.nombre}</p>
                             <p className="desc_resto">
                                 {producto.descripcion}
                             </p>
                         </div>
 
-                        <div className="hero-prodDet-prodDet_content_detalle_botones">
+                        <div className="hero-prodDet_content_detalle_botones">
                             <button className="detalle_button" onClick={() => navigate('/Productos')}>Volver</button>
                             <button className="detalle_button">Agregar</button>
                         </div>

@@ -28,7 +28,7 @@ function Productos() {
 
                     <div className="hero-prod_content_productos">
                         <div className="hero-prod_content_productos_cuadro">
-                            <Link to="/producto/1">
+                            <Link to="/Producto/1">
                                 <img src={naranja} alt="Producto A" />
                             </Link>
                             <p className="producto-nombre">Producto A</p>
@@ -37,7 +37,7 @@ function Productos() {
                         </div>
 
                         <div className="hero-prod_content_productos_cuadro">
-                            <Link to="/producto/2">
+                            <Link to="/Producto/2">
                                 <img src={papas} alt="Producto B" />
                             </Link>
                             <p className="producto-nombre">Producto B</p>
@@ -46,7 +46,7 @@ function Productos() {
                         </div>
 
                         <div className="hero-prod_content_productos_cuadro">
-                            <Link to="/producto/3">
+                            <Link to="/Producto/3">
                                 <img src={platano} alt="Producto C" />
                             </Link>
                             <p className="producto-nombre">Producto C</p>
@@ -55,7 +55,7 @@ function Productos() {
                         </div>
 
                         <div className="hero-prod_content_productos_cuadro">
-                            <Link to="/producto/4">
+                            <Link to="/Producto/4">
                                 <img src={manzana} alt="Producto D" />
                             </Link>
                             <p className="producto-nombre">Producto D</p>
@@ -64,7 +64,7 @@ function Productos() {
                         </div>
 
                         <div className="hero-prod_content_productos_cuadro">
-                            <Link to="/producto/5">
+                            <Link to="/Producto/5">
                                 <img src={cebolla} alt="Producto E" />
                             </Link>
                             <p className="producto-nombre">Producto E</p>

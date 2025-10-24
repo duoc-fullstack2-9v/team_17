@@ -47,11 +47,11 @@
 }
 
 .btn-editar {
-    background-color: #2196F3;
+    background-color: #9ca521;
 }
 
 .btn-editar:hover {
-    background-color: #1976D2;
+    background-color: #798105;
 }
 
 .btn-eliminar {
@@ -60,4 +60,123 @@
 
 .btn-eliminar:hover {
     background-color: #d32f2f;
+}
+
+.mantenedor-controles {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.mantenedor-search-bar {
+    flex-grow: 1;
+}
+
+.mantenedor-search-bar input {
+    width: 100%;
+    padding: 12px 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 16px;
+    transition: border-color 0.3s;
+}
+
+.mantenedor-search-bar input:focus {
+    border-color: #256d43;
+    outline: none;
+}
+
+.mantenedor-botones {
+    display: flex;
+    gap: 10px;
+    flex-shrink: 0;
+}
+
+.button-ingresar {
+    background-color: #2196F3;
+    font-size: 14px;
+    padding: 15px;
+    border-radius: 30px;
+}
+
+.button-ingresar:hover {
+    background-color: #1976D2;
+    font-size: 14px;
+}
+
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    width: 450px;
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    border: 1px solid #ddd;
+}
+
+.modal-content h2 {
+    font-size: 28px;
+    text-align: center;
+    color: #8B4513;
+    font-family: 'Playfair Display', serif;
+    margin-top: 0;
+    margin-bottom: 25px;
+}
+
+.modal-content .campo {
+    margin-bottom: 20px;
+}
+
+.modal-content .campo label {
+    display: block;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: #442c18;
+}
+
+.modal-content .campo input,
+.modal-content .campo select {
+    width: 100%;
+    padding: 12px 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 16px;
+    transition: border-color 0.3s;
+}
+
+.modal-content .campo input:focus,
+.modal-content .campo select:focus {
+    border-color: #256d43;
+    outline: none;
+}
+
+
+.modal-botones {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+.modal-botones button {
+    flex-grow: 1;
+    font-size: 16px !important;
+    padding: 12px 20px !important;
 }
