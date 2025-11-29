@@ -8,7 +8,12 @@ import {
     signInWithEmailAndPassword,
     updateProfile
 } from 'firebase/auth';
-import { usuarioService } from '../services/UsuarioService';
+
+// --- IMPORTANTE: CORRECCIÓN DE IMPORTACIÓN ---
+// Usamos "import * as" para traer todas las funciones exportadas individualmente
+// en tu archivo de servicio y agruparlas en el objeto "usuarioService".
+// Esto soluciona el error "usuarioService is not exported".
+import * as usuarioService from '../services/UsuarioService.jsx'; // o .js si le cambiaste la extensión
 
 const AuthContext = createContext();
 
@@ -19,59 +24,77 @@ export const AuthProvider = ({ children }) => {
     const [userRole, setUserRole] = useState(null);
     const [loading, setLoading] = useState(true);
 
-    // 1. REGISTRO (Actualizado con Teléfono y Dirección)
+    // ==========================================
+    // 1. REGISTRO (Firebase Auth + Spring Boot BD)
+    // ==========================================
     const signup = async (email, password, nombre, apellido, telefono, direccion) => {
-        // a. Crear usuario en Firebase (Autenticación)
-        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-        const user = userCredential.user;
+        try {
+            // a. Crear usuario en Firebase (Autenticación pura)
+            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+            const user = userCredential.user;
 
-        // Actualizar nombre visible en Firebase
-        await updateProfile(user, { displayName: `${nombre} ${apellido}` });
+            // Actualizar el nombre visible en el perfil de Firebase (opcional pero recomendado)
+            await updateProfile(user, { displayName: `${nombre} ${apellido}` });
 
-        // b. Preparar objeto para Spring Boot (Base de Datos)
-        // NOTA: 'uid' es la clave, 'rol' se asigna como "usuario" por defecto en tu Java (@PrePersist)
-        // pero lo enviamos explícito por seguridad si quieres, o dejamos que Java lo ponga.
-        // Aquí enviamos "usuario" para que coincida con tu lógica de frontend inmediata.
-        const nuevoUsuarioBackend = {
-            uid: user.uid,
-            email: email,
-            nombre: nombre,
-            apellido: apellido,
-            telefono: telefono,   // Campo Nuevo
-            direccion: direccion, // Campo Nuevo
-            rol: "usuario"
-        };
+            // b. Preparar el objeto para enviar a Spring Boot (Base de Datos)
+            // Estos campos deben coincidir EXACTAMENTE con tu modelo Usuario.java del backend
+            const nuevoUsuarioBackend = {
+                uid: user.uid,
+                email: email,
+                nombre: nombre,
+                apellido: apellido,
+                telefono: telefono,
+                direccion: direccion,
+                rol: "usuario"        // Asignamos rol por defecto
+            };
 
-        // c. Enviar al Backend
-        await usuarioService.crearUsuario(nuevoUsuarioBackend);
+            // c. Enviar al Backend usando el servicio
+            await usuarioService.crearUsuario(nuevoUsuarioBackend);
 
-        // Establecer rol localmente
-        setUserRole("usuario");
-        return user;
+            // Establecer rol localmente para que la UI se actualice sin recargar
+            setUserRole("usuario");
+            return user;
+        } catch (error) {
+            console.error("Error en el proceso de registro:", error);
+            throw error; // Lanzamos el error para que el componente Registro.jsx lo muestre
+        }
     };
 
-    // 2. LOGIN (Email/Pass)
+    // ==========================================
+    // 2. LOGIN CON EMAIL Y PASSWORD
+    // ==========================================
     const login = async (email, password) => {
         const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        // El useEffect (abajo) se encargará de detectar el cambio y traer el rol desde la BD
         return userCredential.user;
     };
 
-    // 3. LOGIN (Google)
+    // ==========================================
+    // 3. LOGIN CON GOOGLE
+    // ==========================================
     const loginWithGoogle = async () => {
         const result = await signInWithPopup(auth, googleProvider);
         const user = result.user;
+        // Al entrar con Google, verificamos si ya existe en la BD o hay que crearlo
         await sincronizarUsuarioBackend(user);
     };
 
-    const logout = () => signOut(auth);
+    const logout = () => {
+        setUserRole(null);
+        return signOut(auth);
+    };
 
-    // Auxiliar: Traer rol desde Spring Boot
+    // ==========================================
+    // AUXILIAR: Sincronizar con Spring Boot
+    // ==========================================
     const sincronizarUsuarioBackend = async (firebaseUser) => {
         try {
+            // Pedimos al backend los datos de este UID para saber su rol (Admin/Usuario)
             const usuarioBD = await usuarioService.obtenerUsuario(firebaseUser.uid);
             setUserRole(usuarioBD.rol);
         } catch (error) {
-            // Si es 404 (No existe en BD), lo creamos con datos básicos
+            // Si el backend devuelve 404 (No existe), lo creamos automáticamente.
+            // Esto pasa si es la primera vez que se loguea con Google.
             if (error.response && error.response.status === 404) {
                 const nuevoUsuario = {
                     uid: firebaseUser.uid,
@@ -84,14 +107,20 @@ export const AuthProvider = ({ children }) => {
                 };
                 await usuarioService.crearUsuario(nuevoUsuario);
                 setUserRole("usuario");
+            } else {
+                console.error("Error al sincronizar usuario con backend:", error);
             }
         }
     };
 
+    // ==========================================
+    // OBSERVADOR DE ESTADO (Mantiene la sesión)
+    // ==========================================
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, async (user) => {
             setCurrentUser(user);
             if (user) {
+                // Si hay usuario (ej. al recargar página), pedimos su rol al backend
                 await sincronizarUsuarioBackend(user);
             } else {
                 setUserRole(null);

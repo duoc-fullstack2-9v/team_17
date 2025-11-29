@@ -1,0 +1,118 @@
+.hero-historial {
+    width: 90%;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 2rem 0;
+    min-height: 60vh;
+}
+
+.header-historial {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 1rem;
+}
+
+.header-historial h1 {
+    color: #2c3e50;
+    margin: 0;
+}
+
+.btn-volver-carrito {
+    text-decoration: none;
+    color: #7f8c8d;
+    font-weight: 500;
+}
+
+.btn-volver-carrito:hover {
+    color: #3498db;
+}
+
+/* TARJETA DE ORDEN */
+.orden-card {
+    background: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+}
+
+.orden-header {
+    background-color: #f8f9fa;
+    padding: 1rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.orden-info h3 {
+    margin: 0;
+    font-size: 1.1rem;
+    color: #2c3e50;
+}
+
+.fecha {
+    font-size: 0.9rem;
+    color: #7f8c8d;
+}
+
+.orden-total {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #27ae60;
+}
+
+.orden-body {
+    padding: 1.5rem;
+}
+
+.estado {
+    margin-bottom: 1rem;
+    color: #555;
+}
+
+.orden-detalles h4 {
+    margin: 0 0 10px 0;
+    font-size: 1rem;
+    color: #333;
+}
+
+.orden-detalles ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.orden-detalles li {
+    padding: 5px 0;
+    border-bottom: 1px dashed #eee;
+    color: #555;
+    font-size: 0.95rem;
+}
+
+.precio-detalle {
+    float: right;
+    color: #999;
+}
+
+/* MENSAJES */
+.historial-mensaje {
+    text-align: center;
+    padding: 4rem;
+    color: #777;
+}
+
+.btn-ir-tienda,
+.btn-volver {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 10px 20px;
+    background-color: #3498db;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}

@@ -24,7 +24,7 @@ function Nav() {
             <img className="navbar-usuario-img" src={img_inicio} alt="Logo" />
         </Link>
 
-        <Link to="/carrito">
+        <Link to="/Carrito">
             <img className="navbar-usuario-img" src={img_carrito} alt="Logo" />
         </Link>
 
