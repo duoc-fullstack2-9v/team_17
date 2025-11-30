@@ -1,48 +1,60 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
-// Componentes UI
 import Footer from "../components/Footer.jsx";
 import Nav from "../components/Nav.jsx";
 import ProductoCard from '../components/ProductoCard.jsx';
-
-// Estilos
 import '../assets/assets_css/productos.css';
 
-// --- CORRECCIÓN DE IMPORTACIONES (Opción B) ---
-// Usamos "import * as" para agrupar las funciones exportadas en un objeto.
 import * as productoService from '../services/ProductoService.jsx';
 import * as carritoService from '../services/CarritoService.jsx';
 import { useAuth } from '../context/AuthContext.jsx';
 
 function Productos() {
-    // --- ESTADOS ---
     const [productos, setProductos] = useState([]);
     const [categoriaActual, setCategoriaActual] = useState('Todos');
     const [paginaActual, setPaginaActual] = useState(1);
     const [loading, setLoading] = useState(true);
 
     const { currentUser } = useAuth();
+    const location = useLocation();
     const productosPorPagina = 15;
 
-    // --- EFECTO INICIAL ---
-    useEffect(() => {
-        cargarProductos('Todos');
-    }, []);
+    const CATEGORIAS_PRINCIPALES = ['Verduras', 'Frutas', 'Especias', 'Snacks'];
 
-    // --- FUNCIONES ---
-    const cargarProductos = async (categoria) => {
+    useEffect(() => {
+        const categoriaInicial = location.state?.categoria || 'Todos';
+        cargarProductos(categoriaInicial);
+        window.history.replaceState({}, document.title);
+    }, [location.state]);
+
+    const cargarProductos = async (categoriaSeleccionada) => {
         setLoading(true);
         try {
-            let data;
-            if (categoria === 'Todos') {
-                data = await productoService.listarProductos();
+            const todosLosProductos = await productoService.listarProductos();
+
+            let productosFiltrados;
+
+            if (categoriaSeleccionada === 'Todos') {
+                productosFiltrados = todosLosProductos;
+
+            } else if (CATEGORIAS_PRINCIPALES.includes(categoriaSeleccionada)) {
+                productosFiltrados = todosLosProductos.filter(p =>
+                    p.categoria === categoriaSeleccionada
+                );
+
+            } else if (categoriaSeleccionada === 'Otros') {
+                productosFiltrados = todosLosProductos.filter(p =>
+                    !CATEGORIAS_PRINCIPALES.includes(p.categoria)
+                );
             } else {
-                data = await productoService.listarPorCategoria(categoria);
+                productosFiltrados = todosLosProductos;
             }
-            setProductos(data);
-            setCategoriaActual(categoria);
+
+            setProductos(productosFiltrados);
+            setCategoriaActual(categoriaSeleccionada);
             setPaginaActual(1);
+
         } catch (error) {
             console.error("Error al cargar productos:", error);
             setProductos([]);
@@ -55,17 +67,15 @@ function Productos() {
             alert("Por favor, inicia sesión para agregar productos al carrito.");
             return;
         }
-
         try {
             await carritoService.agregarAlCarrito(currentUser.uid, producto.id, 1);
             alert(`¡${producto.nombre} agregado al carrito!`);
         } catch (error) {
-            console.error("Error al agregar al carrito:", error);
+            console.error("Error al agregar:", error);
             alert("Hubo un problema al agregar el producto.");
         }
     };
 
-    // --- PAGINACIÓN ---
     const indiceUltimoProducto = paginaActual * productosPorPagina;
     const indicePrimerProducto = indiceUltimoProducto - productosPorPagina;
     const productosVisibles = productos.slice(indicePrimerProducto, indiceUltimoProducto);
@@ -86,9 +96,8 @@ function Productos() {
                 <div className="hero-prod">
                     <div className="hero-prod_content">
 
-                        {/* Filtros */}
                         <div className="hero-prod_content_categorias">
-                            {['Todos', 'Verduras', 'Frutas', 'Especias', 'Snacks', 'Otros'].map((cat) => (
+                            {['Todos', ...CATEGORIAS_PRINCIPALES, 'Otros'].map((cat) => (
                                 <button
                                     key={cat}
                                     className={`button_categoria ${categoriaActual === cat ? 'active' : ''}`}
@@ -99,7 +108,6 @@ function Productos() {
                             ))}
                         </div>
 
-                        {/* Grilla */}
                         <div className="hero-prod_content_productos">
                             {loading ? (
                                 <p style={{ fontSize: '1.5rem', color: '#fff', gridColumn: '1/-1', textAlign: 'center' }}>
@@ -115,12 +123,11 @@ function Productos() {
                                 ))
                             ) : (
                                 <p style={{ fontSize: '1.5rem', color: '#fff', gridColumn: '1/-1', textAlign: 'center' }}>
-                                    No hay productos disponibles en esta categoría.
+                                    No hay productos disponibles en la categoría "{categoriaActual}".
                                 </p>
                             )}
                         </div>
 
-                        {/* Paginación */}
                         {totalPaginas > 1 && (
                             <div className="paginacion-container">
                                 <button
