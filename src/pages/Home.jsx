@@ -2,18 +2,15 @@ import Footer from "../components/Footer";
 import Nav from "../components/Nav";
 import React, { useState, useEffect, useRef } from 'react';
 import '../assets/assets_css/home.css'
-
 import verduras from '../assets/assets_img/verduras.png'
 import fruits from '../assets/assets_img/fruits.png'
 import spices from '../assets/assets_img/spices.png'
 import snack from '../assets/assets_img/snack.png'
-
 import naranja from '../assets/assets_img/naranja2.png'
 import papas from '../assets/assets_img/papas2.png'
 import platano from '../assets/assets_img/platano2.png'
 import manzana from '../assets/assets_img/apple2.png'
 import cebolla from '../assets/assets_img/cebolla2.png'
-
 
 function Home() {
 
