@@ -47,7 +47,6 @@ function TablaUsuarios() {
     const handleModalSubmit = async (e) => {
         e.preventDefault();
         try {
-            // Actualizamos en BD
             await usuarioService.actualizarUsuario(formData.uid, formData);
             alert('Usuario actualizado.');
             setIsModalOpen(false);

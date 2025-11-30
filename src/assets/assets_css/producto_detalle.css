@@ -1,39 +1,25 @@
-/* =========================================
-   CONTENEDOR PRINCIPAL
-   ========================================= */
 .hero-prodDet {
     background-color: white;
-    /* CAMBIO: Usamos un ancho máximo más controlado para evitar espacios vacíos gigantes */
     width: 100%;
     border: 10px solid #2e7d32;
-    /* Borde verde grueso */
     box-sizing: border-box;
-    /* Centrado */
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
     display: flex;
     flex-direction: column;
-    /* Altura se ajusta al contenido */
     height: auto;
 }
 
 .hero-prodDet_content {
     display: flex;
     width: 100%;
-    /* Hace que las dos columnas tengan la misma altura visual */
     align-items: stretch;
 }
 
-/* =========================================
-   COLUMNA IZQUIERDA: IMAGEN (50%)
-   ========================================= */
 .hero-prodDet_content_image {
     width: 50%;
     flex: 0 0 50%;
-    /* Bloquea el ancho al 50% */
-
     background-color: #6fe087;
     border-right: 10px solid #2e7d32;
-    /* Línea divisoria gruesa */
     box-sizing: border-box;
     padding: 20px;
 
@@ -46,26 +32,18 @@
 .hero-prodDet_content_image img {
     width: 100%;
     height: auto;
-    /* Imagen contenida */
     max-width: 400px;
     max-height: 400px;
     object-fit: contain;
     filter: drop-shadow(0 10px 10px rgba(0, 0, 0, 0.2));
 }
 
-/* =========================================
-   COLUMNA DERECHA: INFORMACIÓN (50%)
-   ========================================= */
 .hero-prodDet_content_detalle {
     width: 50%;
     flex: 0 0 50%;
-    /* Bloquea el ancho al 50% */
-
     padding: 20px;
-    /* Menos espacio blanco interno */
     background-color: #ffffff;
     box-sizing: border-box;
-
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -93,20 +71,13 @@
     padding: 0 15px;
 }
 
-/* =========================================
-   CUADRO VERDE DE COMPRA (MINI)
-   ========================================= */
 .detalle-compra-card {
     background-color: #e8f5e9;
     border: 2px solid #81c784;
     border-radius: 15px;
-
-    /* CAMBIO CLAVE: Padding muy pequeño y ancho ajustado al contenido */
     padding: 10px 25px;
     width: fit-content;
-    /* Se encoge hasta tocar el contenido */
     margin: 0 auto 20px auto;
-
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
 }
 
@@ -117,7 +88,6 @@
     margin-bottom: 5px;
 }
 
-/* Selector Cantidad */
 .selector-cantidad {
     display: flex;
     justify-content: center;
@@ -162,9 +132,6 @@
     font-weight: 600;
 }
 
-/* =========================================
-   BOTONES DE ACCIÓN
-   ========================================= */
 .hero-prodDet_content_detalle_botones {
     display: flex;
     justify-content: center;
@@ -176,7 +143,6 @@
 
 .detalle_button {
     background-color: #a0522d;
-    /* Café */
     color: white;
     border: 3px solid #6b3e23;
     padding: 10px 30px;
@@ -200,9 +166,6 @@
     cursor: not-allowed;
 }
 
-/* =========================================
-   RESPONSIVIDAD (MÓVIL)
-   ========================================= */
 @media (max-width: 900px) {
     .hero-prodDet_content {
         flex-direction: column;

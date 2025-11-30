@@ -30,7 +30,6 @@
     color: #3498db;
 }
 
-/* TARJETA DE ORDEN */
 .orden-card {
     background: white;
     border: 1px solid #e0e0e0;
@@ -99,7 +98,6 @@
     color: #999;
 }
 
-/* MENSAJES */
 .historial-mensaje {
     text-align: center;
     padding: 4rem;

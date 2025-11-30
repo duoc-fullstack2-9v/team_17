@@ -1,4 +1,3 @@
-/* --- ESTILOS DE PESTAÑAS (NUEVO) --- */
 .mantenedor-tabs {
     display: flex;
     justify-content: center;
@@ -26,11 +25,9 @@
 
 .tab-btn.active {
     color: #256d43;
-    /* Tu verde corporativo */
     border-bottom: 4px solid #256d43;
 }
 
-/* --- TU CSS ORIGINAL (Tablas, Botones, Modales) --- */
 .tabla-mantenedor {
     width: 100%;
     border-collapse: collapse;
@@ -166,7 +163,6 @@
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
     border: 1px solid #ddd;
     max-height: 90vh;
-    /* Evita que el modal se salga si es muy alto */
     overflow-y: auto;
 }
 
@@ -221,7 +217,6 @@
     padding: 12px 20px !important;
 }
 
-/* Helper para inputs en fila en el modal */
 .campo-fila {
     display: flex;
     gap: 10px;

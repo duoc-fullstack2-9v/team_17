@@ -5,7 +5,6 @@ import '../assets/assets_css/main.css';
 import { useAuth } from '../context/AuthContext';
 
 function Nav() {
-    // 1. Ahora extraemos 'userData' también
     const { currentUser, userRole, userData, logout } = useAuth();
     const navigate = useNavigate();
 
@@ -18,16 +17,10 @@ function Nav() {
         }
     };
 
-    // 2. LÓGICA DE NOMBRE MEJORADA:
-    // Prioridad 1: Nombre en base de datos MySQL (userData.nombre)
-    // Prioridad 2: Nombre en Firebase (currentUser.displayName)
-    // Prioridad 3: "Usuario"
     const nombreUsuario = userData?.nombre
         ? userData.nombre
         : (currentUser?.displayName ? currentUser.displayName.split(' ')[0] : "Usuario");
 
-    // 3. VALIDACIÓN DE ADMIN MÁS ROBUSTA:
-    // Convertimos a minúsculas para comparar, así funciona con "Admin", "admin" o "ADMIN"
     const esAdmin = userRole && userRole.toLowerCase() === 'admin';
 
     return (
@@ -46,7 +39,6 @@ function Nav() {
 
             <div className="nav-actions">
 
-                {/* Botón Admin: Usamos la variable 'esAdmin' corregida */}
                 {currentUser && esAdmin && (
                     <Link to="/Mantenedor" className="btn-nav btn-admin">
                         ⚙️ Admin

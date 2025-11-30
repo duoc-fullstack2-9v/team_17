@@ -16,10 +16,8 @@ h6 {
     color: #8B4513;
 }
 
-/* --- BARRA DE NAVEGACIÓN --- */
 .navbar {
     display: flex;
-    /* CAMBIO 1: Alineamos todo al inicio (izquierda) por defecto */
     justify-content: flex-start;
     align-items: center;
     border: 10px solid #256d43;
@@ -28,16 +26,13 @@ h6 {
     height: 100px;
     box-sizing: border-box;
     padding: 0 30px;
-    /* Un poco más de aire a los lados */
     gap: 30px;
-    /* Espacio entre el Logo y los Links */
 
     .Logo {
         height: 60px;
         width: auto;
     }
 
-    /* Enlaces Centrales */
     .nav-links {
         display: flex;
         align-items: center;
@@ -64,12 +59,10 @@ h6 {
         }
     }
 
-    /* --- Acciones (Derecha) --- */
     .nav-actions {
         display: flex;
         align-items: center;
         gap: 15px;
-        /* CAMBIO 2: Esto empuja los botones totalmente a la derecha */
         margin-left: auto;
     }
 
@@ -87,7 +80,6 @@ h6 {
         }
     }
 
-    /* Estilo Base Botones Nav */
     .btn-nav {
         padding: 10px 20px;
         border-radius: 25px;
@@ -104,11 +96,9 @@ h6 {
 
     .btn-admin {
         background-color: #4A148C;
-        /* Morado oscuro o Negro */
         color: white;
         border: 2px solid #6A1B9A;
         margin-right: 10px;
-        /* Separarlo un poco del texto de bienvenida */
         display: flex;
         align-items: center;
         gap: 5px;
@@ -116,12 +106,9 @@ h6 {
 
     .btn-admin:hover {
         background-color: #6A1B9A;
-        /* Morado un poco más claro */
         box-shadow: 0 0 10px rgba(106, 27, 154, 0.5);
-        /* Brillo sutil */
     }
 
-    /* 1. Iniciar Sesión (Verde Claro) */
     .btn-login {
         background-color: #057c11;
         color: #030000;
@@ -134,7 +121,6 @@ h6 {
         transform: scale(1.05);
     }
 
-    /* 2. Cerrar Sesión (Rojo Claro) */
     .btn-logout {
         background-color: #a51f1f;
         color: #e68383;
@@ -146,9 +132,7 @@ h6 {
         background-color: #ffcdd2;
     }
 
-    /* 3. Carrito Activo */
     .btn-carrito {
-        /* CAMBIO 3: Color crema/beige en vez de blanco puro */
         background-color: rgb(170, 97, 38);
         font-weight: 1000;
         color: #331b08;
@@ -157,15 +141,12 @@ h6 {
 
     .btn-carrito:hover {
         background-color: #FFECB3;
-        /* Un poco más oscuro al pasar el mouse */
         color: #3E2723;
     }
 
-    /* 4. Carrito Deshabilitado */
     .btn-carrito-disabled {
         background-color: #d7ccc8;
         font-weight: 1000;
-        /* Beige grisáceo */
         color: #a1887f;
         border-color: #bcaaa4;
         cursor: not-allowed;
@@ -173,7 +154,6 @@ h6 {
     }
 }
 
-/* Responsive */
 @media (max-width: 1024px) {
     .navbar {
         height: auto;
@@ -185,7 +165,6 @@ h6 {
 
     .nav-actions {
         margin-left: 0;
-        /* En móvil quitamos el auto para que se centre */
         width: 100%;
         justify-content: center;
     }
@@ -196,7 +175,6 @@ h6 {
     }
 }
 
-/* --- RESTO DE ESTILOS (Sin cambios) --- */
 .espaciado {
     width: 100%;
     height: 45px;

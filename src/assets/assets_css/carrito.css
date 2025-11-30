@@ -1,4 +1,3 @@
-/* Contenedor Principal */
 .hero-carrito {
     width: 90%;
     max-width: 1200px;
@@ -8,7 +7,6 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* Header con Título y Botones */
 .header-carrito {
     display: flex;
     justify-content: space-between;
@@ -30,7 +28,6 @@
     align-items: center;
 }
 
-/* Botón Historial (Azul) */
 .btn-historial {
     background-color: #3498db;
     color: white;
@@ -49,7 +46,6 @@
     background-color: #2980b9;
 }
 
-/* Botón Vaciar (Borde Rojo) */
 .btn-vaciar {
     background: transparent;
     border: 1px solid #e74c3c;
@@ -67,11 +63,9 @@
     color: white;
 }
 
-/* LAYOUT GRID: Izquierda (Items) / Derecha (Resumen) */
 .carrito-grid {
     display: grid;
     grid-template-columns: 2fr 1fr;
-    /* 2 partes para items, 1 para resumen */
     gap: 2rem;
 }
 
@@ -84,11 +78,9 @@
 
     .carrito-grid {
         grid-template-columns: 1fr;
-        /* Una sola columna en móvil */
     }
 }
 
-/* TARJETA DE ITEM */
 .item-card {
     display: flex;
     align-items: center;
@@ -153,7 +145,6 @@
     color: #e74c3c;
 }
 
-/* RESUMEN LATERAL (Sticky opcional) */
 .carrito-resumen {
     background: #f8f9fa;
     padding: 2rem;
@@ -187,7 +178,6 @@
     margin: 1.5rem 0;
 }
 
-/* Botón Pagar (Verde Grande) */
 .btn-checkout {
     width: 100%;
     padding: 1rem;
@@ -226,7 +216,6 @@
     color: #2c3e50;
 }
 
-/* Mensajes de Estado (Vacío / Login) */
 .carrito-container-mensaje {
     text-align: center;
     padding: 4rem 1rem;

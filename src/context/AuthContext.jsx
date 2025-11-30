@@ -9,11 +9,7 @@ import {
     updateProfile
 } from 'firebase/auth';
 
-// --- IMPORTANTE: CORRECCIÓN DE IMPORTACIÓN ---
-// Usamos "import * as" para traer todas las funciones exportadas individualmente
-// en tu archivo de servicio y agruparlas en el objeto "usuarioService".
-// Esto soluciona el error "usuarioService is not exported".
-import * as usuarioService from '../services/UsuarioService.jsx'; // o .js si le cambiaste la extensión
+import * as usuarioService from '../services/UsuarioService.jsx';
 
 const AuthContext = createContext();
 
@@ -29,15 +25,14 @@ export const AuthProvider = ({ children }) => {
     // ==========================================
     const signup = async (email, password, nombre, apellido, telefono, direccion) => {
         try {
-            // a. Crear usuario en Firebase (Autenticación pura)
+            // a. Crear usuario en Firebase 
             const userCredential = await createUserWithEmailAndPassword(auth, email, password);
             const user = userCredential.user;
 
-            // Actualizar el nombre visible en el perfil de Firebase (opcional pero recomendado)
+            // Actualizar el nombre visible en el perfil de Firebase 
             await updateProfile(user, { displayName: `${nombre} ${apellido}` });
 
-            // b. Preparar el objeto para enviar a Spring Boot (Base de Datos)
-            // Estos campos deben coincidir EXACTAMENTE con tu modelo Usuario.java del backend
+            // b. Preparar el objeto para enviar a Spring Boot 
             const nuevoUsuarioBackend = {
                 uid: user.uid,
                 email: email,
@@ -45,7 +40,7 @@ export const AuthProvider = ({ children }) => {
                 apellido: apellido,
                 telefono: telefono,
                 direccion: direccion,
-                rol: "usuario"        // Asignamos rol por defecto
+                rol: "usuario"        // Se asigna rol por defecto
             };
 
             // c. Enviar al Backend usando el servicio
@@ -56,7 +51,7 @@ export const AuthProvider = ({ children }) => {
             return user;
         } catch (error) {
             console.error("Error en el proceso de registro:", error);
-            throw error; // Lanzamos el error para que el componente Registro.jsx lo muestre
+            throw error;
         }
     };
 

@@ -52,8 +52,6 @@ function TablaProductos() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            // Nota: Aquí asumo que tu backend crea o actualiza según si mandas ID o no.
-            // Si tienes un endpoint distinto para actualizar, usa productoService.actualizarProducto(formData)
             await productoService.guardarProducto(formData);
             alert("Producto guardado exitosamente");
             setIsModalOpen(false);
