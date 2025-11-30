@@ -1,3 +1,36 @@
+/* --- ESTILOS DE PESTAÑAS (NUEVO) --- */
+.mantenedor-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 30px;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 10px;
+}
+
+.tab-btn {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #777;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: all 0.3s;
+    border-bottom: 4px solid transparent;
+}
+
+.tab-btn:hover {
+    color: #256d43;
+}
+
+.tab-btn.active {
+    color: #256d43;
+    /* Tu verde corporativo */
+    border-bottom: 4px solid #256d43;
+}
+
+/* --- TU CSS ORIGINAL (Tablas, Botones, Modales) --- */
 .tabla-mantenedor {
     width: 100%;
     border-collapse: collapse;
@@ -98,16 +131,20 @@
 
 .button-ingresar {
     background-color: #2196F3;
+    color: white;
     font-size: 14px;
     padding: 15px;
     border-radius: 30px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
 }
 
 .button-ingresar:hover {
     background-color: #1976D2;
-    font-size: 14px;
 }
 
+/* Modales */
 .modal-backdrop {
     position: fixed;
     top: 0;
@@ -128,6 +165,9 @@
     border-radius: 10px;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
     border: 1px solid #ddd;
+    max-height: 90vh;
+    /* Evita que el modal se salga si es muy alto */
+    overflow-y: auto;
 }
 
 .modal-content h2 {
@@ -151,7 +191,8 @@
 }
 
 .modal-content .campo input,
-.modal-content .campo select {
+.modal-content .campo select,
+.modal-content .campo textarea {
     width: 100%;
     padding: 12px 10px;
     border: 1px solid #ccc;
@@ -167,7 +208,6 @@
     outline: none;
 }
 
-
 .modal-botones {
     display: flex;
     justify-content: space-between;
@@ -179,4 +219,14 @@
     flex-grow: 1;
     font-size: 16px !important;
     padding: 12px 20px !important;
+}
+
+/* Helper para inputs en fila en el modal */
+.campo-fila {
+    display: flex;
+    gap: 10px;
+}
+
+.campo-fila .campo {
+    flex: 1;
 }

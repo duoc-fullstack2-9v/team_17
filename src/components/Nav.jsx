@@ -48,16 +48,12 @@ function Nav() {
 
                 {/* Botón Admin: Usamos la variable 'esAdmin' corregida */}
                 {currentUser && esAdmin && (
-                    <Link to="/MantenedorUsuarios" className="btn-nav btn-admin">
+                    <Link to="/Mantenedor" className="btn-nav btn-admin">
                         ⚙️ Admin
                     </Link>
                 )}
 
-                {currentUser && (
-                    <span className="welcome-text">
-                        Bienvenido, <strong>{nombreUsuario}</strong>
-                    </span>
-                )}
+
 
                 {currentUser ? (
                     <button onClick={handleLogout} className="btn-nav btn-logout">
