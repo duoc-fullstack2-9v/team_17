@@ -2,7 +2,6 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-// 1. IMPORTANTE: Importamos el AuthProvider
 import { AuthProvider } from './context/AuthContext.jsx';
 
 import Home from './pages/Home';
@@ -17,7 +16,6 @@ import Historial from './pages/Historial';
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter>
-      {/* 2. IMPORTANTE: Envolvemos todas las rutas con el AuthProvider */}
       <AuthProvider>
         <Routes>
           <Route path="/" element={<Home />} />
