@@ -16,26 +16,35 @@ h6 {
     color: #8B4513;
 }
 
-
+/* --- BARRA DE NAVEGACIÓN --- */
 .navbar {
     display: flex;
-    justify-content: start;
+    /* CAMBIO 1: Alineamos todo al inicio (izquierda) por defecto */
+    justify-content: flex-start;
+    align-items: center;
     border: 10px solid #256d43;
     background-color: rgb(64, 206, 94);
     width: 100%;
     height: 100px;
     box-sizing: border-box;
+    padding: 0 30px;
+    /* Un poco más de aire a los lados */
+    gap: 30px;
+    /* Espacio entre el Logo y los Links */
 
     .Logo {
-        padding-left: 15px;
+        height: 60px;
+        width: auto;
     }
 
+    /* Enlaces Centrales */
     .nav-links {
         display: flex;
         align-items: center;
         list-style-type: none;
-        gap: 5px;
-        width: 73%;
+        gap: 15px;
+        margin: 0;
+        padding: 0;
 
         a {
             display: flex;
@@ -43,10 +52,10 @@ h6 {
             background-color: rgb(170, 97, 38);
             color: #331b08;
             border: 5px solid rgb(109, 58, 15);
-            padding: 15px;
+            padding: 10px 15px;
             border-radius: 40px;
-
-
+            text-decoration: none;
+            white-space: nowrap;
         }
 
         a:hover {
@@ -55,13 +64,139 @@ h6 {
         }
     }
 
-    .navbar-usuario-img {
-        height: 70px;
-        padding-top: 5px;
+    /* --- Acciones (Derecha) --- */
+    .nav-actions {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        /* CAMBIO 2: Esto empuja los botones totalmente a la derecha */
+        margin-left: auto;
     }
 
+    .welcome-text {
+        font-size: 0.9rem;
+        font-weight: bold;
+        color: #1b3e26;
+        margin-right: 10px;
+        display: none;
+    }
+
+    @media (min-width: 1100px) {
+        .welcome-text {
+            display: block;
+        }
+    }
+
+    /* Estilo Base Botones Nav */
+    .btn-nav {
+        padding: 10px 20px;
+        border-radius: 25px;
+        font-weight: bold;
+        font-size: 0.9rem;
+        text-decoration: none;
+        cursor: pointer;
+        border: 2px solid transparent;
+        transition: all 0.3s ease;
+        display: inline-block;
+        white-space: nowrap;
+        font-family: 'Montserrat', sans-serif;
+    }
+
+    .btn-admin {
+        background-color: #4A148C;
+        /* Morado oscuro o Negro */
+        color: white;
+        border: 2px solid #6A1B9A;
+        margin-right: 10px;
+        /* Separarlo un poco del texto de bienvenida */
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .btn-admin:hover {
+        background-color: #6A1B9A;
+        /* Morado un poco más claro */
+        box-shadow: 0 0 10px rgba(106, 27, 154, 0.5);
+        /* Brillo sutil */
+    }
+
+    /* 1. Iniciar Sesión (Verde Claro) */
+    .btn-login {
+        background-color: #057c11;
+        color: #030000;
+        font-weight: 1000;
+        border: 5px solid #005303;
+    }
+
+    .btn-login:hover {
+        background-color: #c8e6c9;
+        transform: scale(1.05);
+    }
+
+    /* 2. Cerrar Sesión (Rojo Claro) */
+    .btn-logout {
+        background-color: #a51f1f;
+        color: #e68383;
+        font-weight: 1000;
+        border: 5px solid #d63434;
+    }
+
+    .btn-logout:hover {
+        background-color: #ffcdd2;
+    }
+
+    /* 3. Carrito Activo */
+    .btn-carrito {
+        /* CAMBIO 3: Color crema/beige en vez de blanco puro */
+        background-color: rgb(170, 97, 38);
+        font-weight: 1000;
+        color: #331b08;
+        border: 5px solid rgb(109, 58, 15);
+    }
+
+    .btn-carrito:hover {
+        background-color: #FFECB3;
+        /* Un poco más oscuro al pasar el mouse */
+        color: #3E2723;
+    }
+
+    /* 4. Carrito Deshabilitado */
+    .btn-carrito-disabled {
+        background-color: #d7ccc8;
+        font-weight: 1000;
+        /* Beige grisáceo */
+        color: #a1887f;
+        border-color: #bcaaa4;
+        cursor: not-allowed;
+        opacity: 0.9;
+    }
 }
 
+/* Responsive */
+@media (max-width: 1024px) {
+    .navbar {
+        height: auto;
+        flex-direction: column;
+        padding: 20px;
+        gap: 15px;
+        justify-content: center;
+    }
+
+    .nav-actions {
+        margin-left: 0;
+        /* En móvil quitamos el auto para que se centre */
+        width: 100%;
+        justify-content: center;
+    }
+
+    .nav-links {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+}
+
+/* --- RESTO DE ESTILOS (Sin cambios) --- */
 .espaciado {
     width: 100%;
     height: 45px;
@@ -69,21 +204,14 @@ h6 {
     box-sizing: border-box;
 }
 
-
 .footer {
-
     background-color: #442c18;
     margin-top: 0;
     padding: 10px;
     color: #70360d;
     font-family: 'Montserrat', sans-serif;
-    background-image: none;
-    background-repeat: initial;
-    background-size: initial;
-
 
     .footer-content {
-
         display: flex;
         justify-content: space-between;
         align-items: flex-start;
@@ -99,7 +227,6 @@ h6 {
             width: 45%;
 
             h3 {
-
                 padding-left: 0;
                 color: #F8F8F8;
             }
@@ -114,17 +241,15 @@ h6 {
             padding-right: 10px;
 
             a {
-                font-weight: bold;
                 font-weight: 1000;
                 background-color: rgb(170, 97, 38);
                 color: #442c18;
                 border: 3px solid #70360d;
                 padding: 12px 10px;
-                border-radius: 5px;
+                border-radius: 40px;
                 text-decoration: none;
                 text-align: center;
                 transition: 0.3s;
-                border-radius: 40px;
             }
 
             a:hover {
