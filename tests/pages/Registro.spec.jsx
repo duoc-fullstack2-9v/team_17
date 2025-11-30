@@ -1,52 +1,79 @@
-import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
-import { MemoryRouter } from 'react-router-dom';
 import Registro from '../../src/pages/Registro';
+import { BrowserRouter } from 'react-router-dom';
+import { AuthContext } from '../../src/context/AuthContext';
 
-vi.mock('../../src/components/Nav', () => ({
-    default: () => <nav>Nav Mock</nav>
-}));
+const mockSignup = vi.fn();
+const mockNavigate = vi.fn();
 
-vi.mock('../../src/components/Footer', () => ({
-    default: () => <footer>Footer Mock</footer>
-}));
+vi.mock('react-router-dom', async () => {
+    const mod = await vi.importActual('react-router-dom');
+    return { ...mod, useNavigate: () => mockNavigate };
+});
 
-describe('Página Registro', () => {
+vi.mock('../../src/components/Nav', () => ({ default: () => <nav>Nav</nav> }));
+vi.mock('../../src/components/Footer', () => ({ default: () => <footer>Footer</footer> }));
 
-    it('debe renderizar el título "Crear Cuenta"', () => {
+describe('Página <Registro />', () => {
+
+    const renderRegistro = () => {
         render(
-            <MemoryRouter>
-                <Registro />
-            </MemoryRouter>
+            <AuthContext.Provider value={{ signup: mockSignup }}>
+                <BrowserRouter>
+                    <Registro />
+                </BrowserRouter>
+            </AuthContext.Provider>
         );
-        expect(screen.getByText('Crear Cuenta')).toBeInTheDocument();
+    };
+
+    it('Debe renderizar todos los campos del formulario', () => {
+        renderRegistro();
+        expect(screen.getByLabelText(/^Nombre$/i)).toBeInTheDocument();
+        expect(screen.getByLabelText(/^Apellido$/i)).toBeInTheDocument();
+        expect(screen.getByLabelText(/^Teléfono/i)).toBeInTheDocument();
+        expect(screen.getByLabelText(/^Dirección$/i)).toBeInTheDocument();
+        expect(screen.getByLabelText(/^Correo electrónico$/i)).toBeInTheDocument();
     });
 
-    it('debe renderizar todos los campos del formulario de registro', () => {
-        render(
-            <MemoryRouter>
-                <Registro />
-            </MemoryRouter>
-        );
+    it('Debe mostrar error si las contraseñas no coinciden', async () => {
+        renderRegistro();
 
-        expect(screen.getByLabelText(/Nombre/i)).toBeInTheDocument();
-        expect(screen.getByLabelText(/Apellido/i)).toBeInTheDocument();
-        expect(screen.getByLabelText(/Correo electrónico/i)).toBeInTheDocument();
+        fireEvent.change(screen.getByLabelText(/^Contraseña$/i), { target: { value: '123456' } });
+        fireEvent.change(screen.getByLabelText(/Confirmar Contraseña/i), { target: { value: '654321' } });
 
-        expect(screen.getByLabelText(/^Contraseña$/i)).toBeInTheDocument();
-        expect(screen.getByLabelText(/Confirmar Contraseña/i)).toBeInTheDocument();
+        fireEvent.click(screen.getByRole('button', { name: /Registrarme/i }));
+
+        await waitFor(() => {
+            expect(mockSignup).not.toHaveBeenCalled();
+        });
     });
 
-    it('debe renderizar el botón de Registrarme y el enlace a Ingreso', () => {
-        render(
-            <MemoryRouter>
-                <Registro />
-            </MemoryRouter>
-        );
+    it('Debe llamar a signup con todos los datos si el formulario es válido', async () => {
+        renderRegistro();
 
-        expect(screen.getByRole('button', { name: /Registrarme/i })).toBeInTheDocument();
-        expect(screen.getByRole('link', { name: /Inicia sesión aquí/i })).toBeInTheDocument();
+        fireEvent.change(screen.getByLabelText(/^Nombre$/i), { target: { value: 'Vicente' } });
+        fireEvent.change(screen.getByLabelText(/^Apellido$/i), { target: { value: 'Bravo' } });
+        fireEvent.change(screen.getByLabelText(/^Teléfono/i), { target: { value: '987654321' } });
+        fireEvent.change(screen.getByLabelText(/^Dirección$/i), { target: { value: 'Calle Falsa 123' } });
+        fireEvent.change(screen.getByLabelText(/^Correo electrónico$/i), { target: { value: 'vicente@test.com' } });
+
+        const pass = 'passwordSegura1';
+        fireEvent.change(screen.getByLabelText(/^Contraseña$/i), { target: { value: pass } });
+        fireEvent.change(screen.getByLabelText(/Confirmar Contraseña/i), { target: { value: pass } });
+
+        const btn = screen.getByRole('button', { name: /Registrarme/i });
+        fireEvent.click(btn);
+
+        await waitFor(() => {
+            expect(mockSignup).toHaveBeenCalledWith(
+                'vicente@test.com',
+                pass,
+                'Vicente',
+                'Bravo',
+                '987654321',
+                'Calle Falsa 123'
+            );
+        });
     });
-
 });

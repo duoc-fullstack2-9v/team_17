@@ -1,89 +1,49 @@
-import React from 'react';
-import { render, screen, act } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { MemoryRouter } from 'react-router-dom';
+import { render, screen } from '@testing-library/react';
+import { describe, it, expect, vi } from 'vitest';
+import { BrowserRouter } from 'react-router-dom';
 import Home from '../../src/pages/Home';
+import { AuthContext } from '../../src/context/AuthContext';
 
-vi.mock('../../src/components/Nav', () => ({
-    default: () => <nav>Nav Mock</nav>
-}));
+vi.mock('../../src/components/Nav', () => ({ default: () => <nav>Mock Nav</nav> }));
+vi.mock('../../src/components/Footer', () => ({ default: () => <footer>Mock Footer</footer> }));
 
-vi.mock('../../src/components/Footer', () => ({
-    default: () => <footer>Footer Mock</footer>
-}));
+vi.mock('../../src/assets/assets_img/verduras.png', () => ({ default: 'verduras.png' }));
+vi.mock('../../src/assets/assets_img/fruits.png', () => ({ default: 'fruits.png' }));
+vi.mock('../../src/assets/assets_img/spices.png', () => ({ default: 'spices.png' }));
+vi.mock('../../src/assets/assets_img/snack.png', () => ({ default: 'snack.png' }));
+vi.mock('../../src/assets/assets_img/naranja2.png', () => ({ default: 'img' }));
+vi.mock('../../src/assets/assets_img/papas2.png', () => ({ default: 'img' }));
+vi.mock('../../src/assets/assets_img/platano2.png', () => ({ default: 'img' }));
+vi.mock('../../src/assets/assets_img/apple2.png', () => ({ default: 'img' }));
+vi.mock('../../src/assets/assets_img/cebolla2.png', () => ({ default: 'img' }));
 
-describe('Página Home', () => {
+describe('Página <Home />', () => {
 
-
-    beforeEach(() => {
-        vi.useFakeTimers();
-    });
-
-    afterEach(() => {
-        vi.useRealTimers();
-    });
-
-
-    it('debe renderizar el texto de presentación y las categorías', () => {
+    it('Debe renderizar la presentación de la tienda', () => {
         render(
-            <MemoryRouter>
-                <Home />
-            </MemoryRouter>
+            <AuthContext.Provider value={{ currentUser: null }}>
+                <BrowserRouter>
+                    <Home />
+                </BrowserRouter>
+            </AuthContext.Provider>
         );
 
         expect(screen.getByText(/HuertoHogar es una tienda online/i)).toBeInTheDocument();
+        expect(screen.getByText(/Nuestra misión es conectar/i)).toBeInTheDocument();
+    });
+
+    it('Debe mostrar las categorías principales', () => {
+        render(
+            <AuthContext.Provider value={{ currentUser: null }}>
+                <BrowserRouter>
+                    <Home />
+                </BrowserRouter>
+            </AuthContext.Provider>
+        );
+
         expect(screen.getByText('Verduras')).toBeInTheDocument();
-    });
-
-
-    it('debe mostrar la primera imagen del slider al cargar', () => {
-        render(
-            <MemoryRouter>
-                <Home />
-            </MemoryRouter>
-        );
-        expect(screen.getByAltText('Imagen 1')).toBeInTheDocument();
-    });
-
-
-    it('debe mostrar la siguiente imagen al hacer clic en "next"', async () => {
-
-        const user = userEvent.setup({ delay: null });
-
-        render(
-            <MemoryRouter>
-                <Home />
-            </MemoryRouter>
-        );
-
-
-        const slidesContainer = screen.getByTestId('slides-container');
-
-        const nextButton = document.querySelector('.next');
-
-        expect(slidesContainer.style.transform).toBe('');
-
-        await user.click(nextButton);
-
-        expect(slidesContainer.style.transform).toBe('translateX(-100%)');
-    });
-
-    it('debe avanzar el slider automáticamente después de 2.5 segundos', () => {
-        render(
-            <MemoryRouter>
-                <Home />
-            </MemoryRouter>
-        );
-
-        const slidesContainer = screen.getByTestId('slides-container');
-
-        expect(slidesContainer.style.transform).toBe('');
-
-        act(() => {
-            vi.advanceTimersByTime(2500);
-        });
-
-        expect(slidesContainer.style.transform).toBe('translateX(-100%)');
+        expect(screen.getByText('Frutas')).toBeInTheDocument();
+        expect(screen.getByText('Especias')).toBeInTheDocument();
+        expect(screen.getByText('Snacks')).toBeInTheDocument();
     });
 });

@@ -1,52 +1,49 @@
-import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
-import { MemoryRouter } from 'react-router-dom';
 import Ingreso from '../../src/pages/Ingreso';
+import { BrowserRouter } from 'react-router-dom';
+import { AuthContext } from '../../src/context/AuthContext';
 
-vi.mock('../../src/components/Nav', () => ({
-    default: () => <nav>Nav Mock</nav>
-}));
+const mockLogin = vi.fn();
+const mockNavigate = vi.fn();
 
-vi.mock('../../src/components/Footer', () => ({
-    default: () => <footer>Footer Mock</footer>
-}));
+vi.mock('react-router-dom', async () => {
+    const mod = await vi.importActual('react-router-dom');
+    return { ...mod, useNavigate: () => mockNavigate };
+});
 
-describe('Página Ingreso', () => {
+vi.mock('../../src/components/Nav', () => ({ default: () => <nav>Mock Nav</nav> }));
+vi.mock('../../src/components/Footer', () => ({ default: () => <footer>Mock Footer</footer> }));
 
-    it('debe renderizar el título "Iniciar sesión"', () => {
+describe('Página <Ingreso />', () => {
+
+    const renderIngreso = () => {
         render(
-            <MemoryRouter>
-                <Ingreso />
-            </MemoryRouter>
+            <AuthContext.Provider value={{ login: mockLogin }}>
+                <BrowserRouter>
+                    <Ingreso />
+                </BrowserRouter>
+            </AuthContext.Provider>
         );
+    };
+
+    it('Debe renderizar el formulario de login', () => {
+        renderIngreso();
         expect(screen.getByText('Iniciar sesión')).toBeInTheDocument();
+        expect(screen.getByLabelText(/Correo electrónico/i)).toBeInTheDocument();
+        expect(screen.getByLabelText(/Contraseña/i)).toBeInTheDocument();
     });
 
-    it('debe renderizar los campos de email y contraseña', () => {
-        render(
-            <MemoryRouter>
-                <Ingreso />
-            </MemoryRouter>
-        );
+    it('Debe llamar a login con las credenciales ingresadas', async () => {
+        renderIngreso();
 
-        expect(screen.getByText('Correo electrónico')).toBeInTheDocument();
-        expect(screen.getByText('Contraseña')).toBeInTheDocument();
+        fireEvent.change(screen.getByLabelText(/Correo electrónico/i), { target: { value: 'test@duoc.cl' } });
+        fireEvent.change(screen.getByLabelText(/Contraseña/i), { target: { value: '123456' } });
 
-        expect(screen.getByPlaceholderText('ejemplo@gmail.com')).toBeInTheDocument();
-        expect(screen.getByPlaceholderText('********')).toBeInTheDocument();
+        fireEvent.click(screen.getByRole('button', { name: /ingresar/i }));
+
+        await waitFor(() => {
+            expect(mockLogin).toHaveBeenCalledWith('test@duoc.cl', '123456');
+        });
     });
-
-    it('debe renderizar el botón de Ingresar y el enlace a Registro', () => {
-        render(
-            <MemoryRouter>
-                <Ingreso />
-            </MemoryRouter>
-        );
-
-        expect(screen.getByRole('button', { name: /Ingresar/i })).toBeInTheDocument();
-
-        expect(screen.getByRole('link', { name: /Regístrate aquí/i })).toBeInTheDocument();
-    });
-
 });

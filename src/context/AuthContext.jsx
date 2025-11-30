@@ -11,7 +11,7 @@ import {
 
 import * as usuarioService from '../services/UsuarioService.jsx';
 
-const AuthContext = createContext();
+export const AuthContext = createContext();
 
 export const useAuth = () => useContext(AuthContext);
 

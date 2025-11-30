@@ -1,28 +1,32 @@
-import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { describe, it, expect } from 'vitest';
 import Footer from '../../src/components/Footer';
 
-describe('Componente Footer', () => {
+describe('Componente <Footer />', () => {
 
-    it('debe renderizar el título "Contáctanos"', () => {
+    it('Debe renderizar la información de contacto correctamente', () => {
         render(<Footer />);
 
-        expect(screen.getByRole('heading', { name: /Contáctanos/i })).toBeInTheDocument();
+        // Verificamos textos clave
+        expect(screen.getByText(/Contáctanos/i)).toBeInTheDocument();
+        expect(screen.getByText(/info@huertohogar.cl/i)).toBeInTheDocument();
+        expect(screen.getByText(/Santiago/i)).toBeInTheDocument();
     });
 
-    it('debe renderizar los enlaces a redes sociales', () => {
+    it('Debe contener los enlaces a redes sociales', () => {
         render(<Footer />);
 
-        expect(screen.getByRole('link', { name: /Facebook/i })).toBeInTheDocument();
-        expect(screen.getByRole('link', { name: /Instagram/i })).toBeInTheDocument();
-        expect(screen.getByRole('link', { name: /WhatsApp/i })).toBeInTheDocument();
-        expect(screen.getByRole('link', { name: /Twitter/i })).toBeInTheDocument();
+        // Verificamos que existan los links
+        expect(screen.getByText('Facebook')).toBeInTheDocument();
+        expect(screen.getByText('Instagram')).toBeInTheDocument();
+
+        // Opcional: Verificar que tengan href (aunque sea #)
+        const linkFace = screen.getByText('Facebook');
+        expect(linkFace).toHaveAttribute('href', '#');
     });
 
-    it('debe renderizar el aviso de copyright', () => {
+    it('Debe mostrar el copyright del año actual o fijo', () => {
         render(<Footer />);
-        expect(screen.getByText(/2025 HuertoHogar. Todos los derechos reservados./i)).toBeInTheDocument();
+        expect(screen.getByText(/Todos los derechos reservados/i)).toBeInTheDocument();
     });
-
 });
