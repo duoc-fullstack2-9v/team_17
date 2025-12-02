@@ -3,8 +3,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import Nav from "../components/Nav";
 import Footer from "../components/Footer";
 import { useAuth } from '../context/AuthContext';
-
-// Importamos tus servicios exactos
 import * as carritoService from '../services/CarritoService';
 import * as ordenService from '../services/OrdenService';
 
@@ -19,7 +17,6 @@ function Carrito() {
     const [total, setTotal] = useState(0);
     const [procesandoCompra, setProcesandoCompra] = useState(false);
 
-    // 1. Cargar el carrito al iniciar
     useEffect(() => {
         if (currentUser) {
             cargarDatosCarrito();
@@ -28,11 +25,9 @@ function Carrito() {
         }
     }, [currentUser]);
 
-    // 2. Calcular Total automáticamente cuando cambian los items
     useEffect(() => {
         if (items && items.length > 0) {
             const nuevoTotal = items.reduce((acc, item) => {
-                // Estructura esperada: { cantidad: 2, producto: { precio: 1000, ... } }
                 return acc + (item.producto.precio * item.cantidad);
             }, 0);
             setTotal(nuevoTotal);
@@ -56,7 +51,6 @@ function Carrito() {
         if (!window.confirm("¿Eliminar este producto?")) return;
 
         try {
-            // itemId es el ID de la fila del carrito, no del producto
             await carritoService.eliminarItemCarrito(itemId);
             setItems(prevItems => prevItems.filter(item => item.id !== itemId));
         } catch (error) {
@@ -81,11 +75,9 @@ function Carrito() {
 
         setProcesandoCompra(true);
         try {
-            // Convertimos el carrito actual en una Orden
             await ordenService.comprar(currentUser.uid);
             alert("¡Compra realizada con éxito! Puedes ver el detalle en tu historial.");
 
-            // Limpiamos visualmente y redirigimos al Historial (o al Home)
             setItems([]);
             navigate('/Historial');
         } catch (error) {
@@ -116,7 +108,6 @@ function Carrito() {
                 <div className="espaciado"></div>
 
                 <div className="hero-carrito">
-                    {/* ENCABEZADO: Título y Botones Superiores */}
                     <div className="header-carrito">
                         <h1 className="titulo-carrito">Tu Carrito</h1>
 
@@ -142,7 +133,6 @@ function Carrito() {
                         </div>
                     ) : (
                         <div className="carrito-grid">
-                            {/* --- LISTA DE ITEMS (IZQUIERDA) --- */}
                             <div className="carrito-items">
                                 {items.map((item) => (
                                     <div key={item.id} className="item-card">
@@ -181,8 +171,6 @@ function Carrito() {
                                     </div>
                                 ))}
                             </div>
-
-                            {/* --- RESUMEN DE PAGO (DERECHA) --- */}
                             <div className="carrito-resumen">
                                 <h3>Resumen del Pedido</h3>
                                 <div className="resumen-fila">

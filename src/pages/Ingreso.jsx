@@ -6,13 +6,11 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
 function Ingreso() {
-    // Estados para manejar los inputs y la carga
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
 
-    // Importamos la función login del contexto
     const { login } = useAuth();
     const navigate = useNavigate();
 
@@ -22,10 +20,8 @@ function Ingreso() {
             setError('');
             setLoading(true);
 
-            // Intentamos iniciar sesión con Firebase
             await login(email, password);
 
-            // Si funciona, redirigimos al inicio
             navigate('/');
         } catch (err) {
             console.error(err);
@@ -46,7 +42,6 @@ function Ingreso() {
                             <p className="titulo">Iniciar sesión</p>
                         </div>
 
-                        {/* Mensaje de error si falla el login */}
                         {error && (
                             <div className="alerta-error" style={{ color: '#dc3545', textAlign: 'center', marginBottom: '15px', fontWeight: 'bold' }}>
                                 {error}

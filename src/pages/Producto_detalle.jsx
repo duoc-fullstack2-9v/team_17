@@ -16,14 +16,12 @@ function Producto_detalle() {
     const navigate = useNavigate();
     const { currentUser } = useAuth();
 
-    // Estados
     const [producto, setProducto] = useState(null);
     const [loading, setLoading] = useState(true);
-    const [cantidad, setCantidad] = useState(1); // Estado para la cantidad a comprar
+    const [cantidad, setCantidad] = useState(1);
 
     const IMAGEN_POR_DEFECTO = "https://placehold.co/500x500?text=Sin+Imagen";
 
-    // 1. Cargar el producto desde el Backend
     useEffect(() => {
         const cargarDetalle = async () => {
             setLoading(true);
@@ -38,18 +36,15 @@ function Producto_detalle() {
         if (id) cargarDetalle();
     }, [id]);
 
-    // 2. Lógica para aumentar/disminuir cantidad
     const decrementar = () => {
         if (cantidad > 1) setCantidad(cantidad - 1);
     };
 
     const incrementar = () => {
-        // No permitir seleccionar más del stock disponible
         if (producto.stock && cantidad >= producto.stock) return;
         setCantidad(cantidad + 1);
     };
 
-    // 3. Agregar al Carrito
     const handleAgregar = async () => {
         if (!currentUser) {
             alert("Debes iniciar sesión para comprar.");
@@ -64,7 +59,6 @@ function Producto_detalle() {
         }
     };
 
-    // Render de Carga
     if (loading) return (
         <>
             <Nav />
@@ -75,7 +69,6 @@ function Producto_detalle() {
         </>
     );
 
-    // Render si no existe
     if (!producto) return (
         <>
             <Nav />
@@ -95,7 +88,6 @@ function Producto_detalle() {
                 <div className="hero-prodDet">
                     <div className="hero-prodDet_content">
 
-                        {/* COLUMNA IZQUIERDA: IMAGEN */}
                         <div className="hero-prodDet_content_image">
                             <img
                                 src={producto.img || IMAGEN_POR_DEFECTO}
@@ -104,7 +96,7 @@ function Producto_detalle() {
                             />
                         </div>
 
-                        {/* COLUMNA DERECHA: INFORMACIÓN */}
+
                         <div className="hero-prodDet_content_detalle">
                             <div className="hero-prodDet_content_detalle_desc">
                                 <p className="desc_titulo">{producto.nombre}</p>
@@ -113,7 +105,6 @@ function Producto_detalle() {
                                     {producto.descripcion || "Sin descripción disponible."}
                                 </p>
 
-                                {/* CUADRO DE COMPRA (Precio, Cantidad, Stock) */}
                                 <div className="detalle-compra-card">
                                     <div className="precio-grande">
                                         ${producto.precio?.toLocaleString('es-CL')}
@@ -134,7 +125,6 @@ function Producto_detalle() {
                                 </div>
                             </div>
 
-                            {/* BOTONES DE ACCIÓN */}
                             <div className="hero-prodDet_content_detalle_botones">
                                 <button className="detalle_button" onClick={() => navigate('/Productos')}>
                                     Volver
@@ -142,7 +132,6 @@ function Producto_detalle() {
                                 <button
                                     className="detalle_button"
                                     onClick={handleAgregar}
-                                    // Se deshabilita si NO hay usuario O si NO hay stock
                                     disabled={!currentUser || producto.stock <= 0}
                                     title={!currentUser ? "Inicia sesión para comprar" : ""}
                                 >

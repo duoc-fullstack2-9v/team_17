@@ -4,7 +4,7 @@ import Nav from "../components/Nav";
 import Footer from "../components/Footer";
 import { useAuth } from '../context/AuthContext';
 import * as ordenService from '../services/OrdenService';
-import '../assets/assets_css/historial.css'; // Crearemos este archivo abajo
+import '../assets/assets_css/historial.css';
 
 function Historial() {
     const { currentUser } = useAuth();
@@ -22,7 +22,6 @@ function Historial() {
     const cargarHistorial = async () => {
         try {
             const data = await ordenService.historialCompras(currentUser.uid);
-            // Ordenamos por fecha descendente (la más nueva primero) si el backend no lo hace
             const ordenesOrdenadas = data.sort((a, b) => new Date(b.fecha) - new Date(a.fecha));
             setOrdenes(ordenesOrdenadas);
         } catch (error) {
@@ -32,7 +31,6 @@ function Historial() {
         }
     };
 
-    // Función auxiliar para formatear fecha
     const formatearFecha = (fechaString) => {
         if (!fechaString) return "Fecha desconocida";
         const fecha = new Date(fechaString);
@@ -90,7 +88,6 @@ function Historial() {
                                     <div className="orden-body">
                                         <p className="estado">Estado: <strong>{orden.estado || "Completada"}</strong></p>
 
-                                        {/* Si tu backend devuelve los detalles dentro de la orden, los mostramos */}
                                         {orden.detalles && orden.detalles.length > 0 && (
                                             <div className="orden-detalles">
                                                 <h4>Productos:</h4>

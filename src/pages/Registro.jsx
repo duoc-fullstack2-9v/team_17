@@ -6,12 +6,11 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
 function Registro() {
-    // Estado para guardar todos los datos del formulario
     const [formData, setFormData] = useState({
         nombre: '',
         apellido: '',
-        telefono: '',   // Campo Nuevo
-        direccion: '',  // Campo Nuevo
+        telefono: '',
+        direccion: '',
         email: '',
         password: '',
         confirmarPassword: ''
@@ -20,11 +19,9 @@ function Registro() {
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
 
-    // Importamos la función signup del contexto
     const { signup } = useAuth();
     const navigate = useNavigate();
 
-    // Actualiza el estado cuando el usuario escribe en los inputs
     const handleChange = (e) => {
         setFormData({
             ...formData,
@@ -32,11 +29,9 @@ function Registro() {
         });
     };
 
-    // Envío del formulario
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // Validación básica de que las contraseñas coincidan
         if (formData.password !== formData.confirmarPassword) {
             return setError('Las contraseñas no coinciden');
         }
@@ -45,8 +40,6 @@ function Registro() {
             setError('');
             setLoading(true);
 
-            // Llamamos a la función signup pasando TODOS los campos
-            // Estos irán a Firebase Auth y luego a tu base de datos MySQL
             await signup(
                 formData.email,
                 formData.password,
@@ -56,11 +49,9 @@ function Registro() {
                 formData.direccion
             );
 
-            // Si todo sale bien, redirigimos al home
             navigate('/');
         } catch (err) {
             console.error(err);
-            // Manejo de errores comunes de Firebase
             if (err.code === 'auth/email-already-in-use') {
                 setError('El correo ya está registrado.');
             } else if (err.code === 'auth/weak-password') {
@@ -84,7 +75,6 @@ function Registro() {
                             <p className="titulo">Crear Cuenta</p>
                         </div>
 
-                        {/* Mensaje de error visual si existe */}
                         {error && (
                             <div className="alerta-error" style={{ color: '#dc3545', textAlign: 'center', marginBottom: '15px', fontWeight: 'bold' }}>
                                 {error}
@@ -94,7 +84,6 @@ function Registro() {
                         <form onSubmit={handleSubmit}>
                             <div className="hero-auth-contenido-campos">
 
-                                {/* Nombre */}
                                 <div className="campo">
                                     <label htmlFor="nombre">Nombre</label>
                                     <input
@@ -104,7 +93,6 @@ function Registro() {
                                     />
                                 </div>
 
-                                {/* Apellido */}
                                 <div className="campo">
                                     <label htmlFor="apellido">Apellido</label>
                                     <input
@@ -114,7 +102,6 @@ function Registro() {
                                     />
                                 </div>
 
-                                {/* CAMPO NUEVO: Teléfono */}
                                 <div className="campo">
                                     <label htmlFor="telefono">Teléfono</label>
                                     <input
@@ -124,7 +111,6 @@ function Registro() {
                                     />
                                 </div>
 
-                                {/* CAMPO NUEVO: Dirección */}
                                 <div className="campo">
                                     <label htmlFor="direccion">Dirección</label>
                                     <input
@@ -134,7 +120,6 @@ function Registro() {
                                     />
                                 </div>
 
-                                {/* Email */}
                                 <div className="campo">
                                     <label htmlFor="email">Correo electrónico</label>
                                     <input
@@ -144,7 +129,6 @@ function Registro() {
                                     />
                                 </div>
 
-                                {/* Contraseña */}
                                 <div className="campo">
                                     <label htmlFor="password">Contraseña</label>
                                     <input
@@ -154,7 +138,6 @@ function Registro() {
                                     />
                                 </div>
 
-                                {/* Confirmar Contraseña */}
                                 <div className="campo">
                                     <label htmlFor="confirmarPassword">Confirmar Contraseña</label>
                                     <input

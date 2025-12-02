@@ -4,21 +4,18 @@ import Nav from '../components/Nav';
 import Footer from '../components/Footer';
 import { useAuth } from '../context/AuthContext';
 
-// Importamos los sub-componentes (las tablas)
 import TablaUsuarios from '../components/mantenedor/TablaUsuarios';
 import TablaProductos from '../components/mantenedor/TablaProductos';
 
 import '../assets/assets_css/mantenedor.css';
-import '../assets/assets_css/autenticacion.css'; // Para el layout hero-auth
+import '../assets/assets_css/autenticacion.css';
 
 function Mantenedor() {
     const { userRole, currentUser } = useAuth();
     const navigate = useNavigate();
 
-    // Control de pestañas: 'usuarios' por defecto
     const [activeTab, setActiveTab] = useState('usuarios');
 
-    // Validación de seguridad
     useEffect(() => {
         const timer = setTimeout(() => {
             if (!currentUser || userRole?.toLowerCase() !== 'admin') {
@@ -28,7 +25,6 @@ function Mantenedor() {
         return () => clearTimeout(timer);
     }, [currentUser, userRole, navigate]);
 
-    // Render de seguridad simple mientras carga
     if (!currentUser || userRole?.toLowerCase() !== 'admin') {
         return (
             <>
@@ -53,7 +49,6 @@ function Mantenedor() {
                             <p className="titulo">Panel de Administración</p>
                         </div>
 
-                        {/* --- PESTAÑAS PARA CAMBIAR VISTA --- */}
                         <div className="mantenedor-tabs">
                             <button
                                 className={`tab-btn ${activeTab === 'usuarios' ? 'active' : ''}`}
@@ -69,7 +64,6 @@ function Mantenedor() {
                             </button>
                         </div>
 
-                        {/* --- RENDERIZADO CONDICIONAL --- */}
                         {activeTab === 'usuarios' ? (
                             <TablaUsuarios />
                         ) : (
