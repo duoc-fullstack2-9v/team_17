@@ -1,0 +1,227 @@
+.mantenedor-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 30px;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 10px;
+}
+
+.tab-btn {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #777;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: all 0.3s;
+    border-bottom: 4px solid transparent;
+}
+
+.tab-btn:hover {
+    color: #256d43;
+}
+
+.tab-btn.active {
+    color: #256d43;
+    border-bottom: 4px solid #256d43;
+}
+
+.tabla-mantenedor {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-size: 16px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.tabla-mantenedor thead tr {
+    background-color: #256d43;
+    color: white;
+    text-align: left;
+}
+
+.tabla-mantenedor th,
+.tabla-mantenedor td {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+}
+
+.tabla-mantenedor tbody tr {
+    background-color: #fdfdfd;
+}
+
+.tabla-mantenedor tbody tr:nth-of-type(even) {
+    background-color: #f7f7f7;
+}
+
+.tabla-mantenedor tbody tr:hover {
+    background-color: #f0f0f0;
+}
+
+.tabla-mantenedor .acciones {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.tabla-mantenedor .btn-editar,
+.tabla-mantenedor .btn-eliminar {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    color: white;
+    font-weight: 600;
+}
+
+.btn-editar {
+    background-color: #9ca521;
+}
+
+.btn-editar:hover {
+    background-color: #798105;
+}
+
+.btn-eliminar {
+    background-color: #f44336;
+}
+
+.btn-eliminar:hover {
+    background-color: #d32f2f;
+}
+
+.mantenedor-controles {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.mantenedor-search-bar {
+    flex-grow: 1;
+}
+
+.mantenedor-search-bar input {
+    width: 100%;
+    padding: 12px 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 16px;
+    transition: border-color 0.3s;
+}
+
+.mantenedor-search-bar input:focus {
+    border-color: #256d43;
+    outline: none;
+}
+
+.mantenedor-botones {
+    display: flex;
+    gap: 10px;
+    flex-shrink: 0;
+}
+
+.button-ingresar {
+    background-color: #2196F3;
+    color: white;
+    font-size: 14px;
+    padding: 15px;
+    border-radius: 30px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.button-ingresar:hover {
+    background-color: #1976D2;
+}
+
+/* Modales */
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    width: 450px;
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    border: 1px solid #ddd;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.modal-content h2 {
+    font-size: 28px;
+    text-align: center;
+    color: #8B4513;
+    font-family: 'Playfair Display', serif;
+    margin-top: 0;
+    margin-bottom: 25px;
+}
+
+.modal-content .campo {
+    margin-bottom: 20px;
+}
+
+.modal-content .campo label {
+    display: block;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: #442c18;
+}
+
+.modal-content .campo input,
+.modal-content .campo select,
+.modal-content .campo textarea {
+    width: 100%;
+    padding: 12px 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 16px;
+    transition: border-color 0.3s;
+}
+
+.modal-content .campo input:focus,
+.modal-content .campo select:focus {
+    border-color: #256d43;
+    outline: none;
+}
+
+.modal-botones {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+.modal-botones button {
+    flex-grow: 1;
+    font-size: 16px !important;
+    padding: 12px 20px !important;
+}
+
+.campo-fila {
+    display: flex;
+    gap: 10px;
+}
+
+.campo-fila .campo {
+    flex: 1;
+}
